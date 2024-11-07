@@ -15,6 +15,7 @@ import os
 
 folder_current_path = '\\'.join(os.path.abspath(__file__).split('\\')[:-1])
 stop_event = Event()
+listen = None
 
 with open('config.json', 'r') as file:
     conf = json.load(file)
@@ -27,6 +28,7 @@ class MouseMonitor:
     def __init__(self):
         self.mouse = mouse.Controller()
         self.xy = [(0, 0)]
+        listen = mouse.Listener(on_click=self.on_click)
 
     def scree(self):
         # 截取整个屏幕
@@ -72,16 +74,16 @@ class MouseMonitor:
 
     def join_mou(self):
         # 监听鼠标事件
-        with mouse.Listener(on_click=self.on_click) as l:
-            l.join()
+        l = mouse.Listener(on_click=self.on_click)
+        l.start()
+        # l.join()
 
     def start_mou(self):
         stop_event.clear()
-        Thread(target=self.join_mou).start()
+        self.join_mou()
 
     def stop_mou(self):
         stop_event.set()
-
 
 class TableUI:
     def __init__(self, master):
@@ -197,6 +199,7 @@ def show_window(icon, item):
 # 退出应用程序
 def exit_app(icon, item):
     icon.stop()
+    stop_event.set()
     root.destroy()
 
 
@@ -204,7 +207,7 @@ def exit_app(icon, item):
 def show_icon():
     image = Image.open("icon.png")  # 替换为你的图标路径
     menu = (item('Show', show_window), item('Exit', exit_app))
-    icon = pystray.Icon("name", image, "Temperature Predictor", menu)
+    icon = pystray.Icon("name", image, "Doing together", menu)
     icon.run()
 
 
