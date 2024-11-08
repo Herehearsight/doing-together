@@ -3,6 +3,7 @@ from os import path, mkdir
 from flask import Flask, request, url_for, render_template, send_from_directory, jsonify
 import os
 from flask_cors import CORS
+from pynput.keyboard import Key, Controller
 
 app = Flask(__name__)
 # r'/*' 是通配符，让本服务器所有的 URL 都允许跨域请求
@@ -11,6 +12,9 @@ CORS(app, resources=r'/*')
 IMAGE_FOLDER = 'static/images'
 if not path.exists(IMAGE_FOLDER):
     mkdir(IMAGE_FOLDER)
+
+def st():
+    app.run(host='0.0.0.0', port=5050)
 
 
 @app.route('/')
@@ -53,6 +57,7 @@ def get_images(category):
 @app.route('/images/<path:filename>')
 def serve_image(filename):
     return send_from_directory(IMAGE_FOLDER, filename)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5050)

@@ -1,7 +1,6 @@
 from pyautogui import screenshot
 from datetime import datetime
 from threading import Thread, Event
-from time import time
 from json import load, dumps, dump
 from requests import post
 from pynput import mouse
@@ -50,7 +49,7 @@ class MouseMonitor:
         if stop_event.is_set():
             return False
         if pressed and button == mouse.Button.left:
-            current_time = time()
+            current_time = datetime.now().timestamp()
             if current_time - self.last_click_time < self.TIME_THRESHOLD:
                 self.scree()
             self.last_click_time = current_time
