@@ -1,18 +1,23 @@
-场景
+# 场景
 
-上传者->服务器->访问者
+多个上传者->服务器<-多个访问者
 
-client 
+# 服务端
 
-运行 python flasker.py
+运行 main.exe文件
 
-serv
+或者 在cmd窗口中输入
+```sh
+python flasker.py
+```
 
-运行 打开exe文件即可,详见《使用说明》
+# 客户端
 
-调试 main.py
+运行 打开exe运行即可,详见《使用说明》
 
-访问者
+源文件为main.py
 
-浏览器 输入服务器端的 ip:port
+# 访问者
+
+浏览器 输入服务端的 ip:port
 
