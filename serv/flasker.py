@@ -1,6 +1,6 @@
 import json
-
-from flask import Flask, request, redirect, url_for, render_template, send_from_directory, jsonify
+from os import path, mkdir
+from flask import Flask, request, url_for, render_template, send_from_directory, jsonify
 import os
 from flask_cors import CORS
 
@@ -9,6 +9,9 @@ app = Flask(__name__)
 CORS(app, resources=r'/*')
 
 IMAGE_FOLDER = 'static/images'
+if not path.exists(IMAGE_FOLDER):
+    mkdir(IMAGE_FOLDER)
+
 
 @app.route('/')
 def index():
@@ -53,4 +56,4 @@ def serve_image(filename):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5050)
-    # app.run()
+    # app.run(port=5050)

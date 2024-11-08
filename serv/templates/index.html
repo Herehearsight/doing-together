@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="sidebar">
-            <h2>Users List</h2>
+            <h3>Users List</h3>
             <ul id="category-list">
                 {% for category in categories %}
                     <li><a href="#" onclick="showCategory('{{ category }}')">{{ category }}</a></li>
@@ -21,7 +21,12 @@
             <div id="image-container">
                 <img id="display-image" src="{{ url_for('static', filename='icon.png') }}" alt="Displayed Image">
             </div>
+<!--            <div class="footer">-->
+<!--                <img id="chatimg" src="{{ url_for('static', filename='chat.png') }}" onclick="showChat()">-->
+<!--                <div id="chatwindow"></div>-->
+<!--            </div>-->
         </div>
+
     </div>
 
     <script>
@@ -146,6 +151,12 @@
         // 定时更新类别列表
         setInterval(fetchCategories, 10000);
         setInterval(()=>showCategory(userwho), 2000);
+
+        function showChat(){
+            const w = document.getElementById('chatwindow').style.display.toString();
+            console.log(w);
+                // w = 'block';
+        }
     </script>
 </body>
 </html>
